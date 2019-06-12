@@ -43,6 +43,7 @@ const shoppingList = (function(){
   
   
   function render() {
+    console.log(store.error);
     // Filter item list if store prop is true by item.checked === false
     let items = [ ...store.items ];
     if (store.hideCheckedItems) {
@@ -53,9 +54,11 @@ const shoppingList = (function(){
     if (store.searchTerm) {
       items = items.filter(item => item.name.includes(store.searchTerm));
     }
+
     if(store.error){
-      $('.errorcontainer').html(`<p>Must provide name: ${store.error.code}</p>`);
+      $('.errorcontainer').html(`<p>${store.error}</p>`);
     }
+    
     else { 
       $('.error').html('');
 
