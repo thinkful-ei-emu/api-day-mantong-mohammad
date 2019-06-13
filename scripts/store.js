@@ -11,10 +11,10 @@ const store = (function(){
     return this.items.find(item => item.id === id);
   };
 
-  const error=null;
-  const setError=function(err){
-    this.error=err;
-  };
+  const error = null;
+  // const setError=function(err){
+  //   this.error=err;
+  // };
   
   
   const findAndUpdate = function(id,newData){
@@ -53,7 +53,7 @@ const store = (function(){
     toggleCheckedFilter,
     setSearchTerm,
     setItemIsEditing,
-    setError,
+    //setError,
     error,
   };
   

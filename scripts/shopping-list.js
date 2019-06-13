@@ -56,11 +56,10 @@ const shoppingList = (function(){
     }
 
     if(store.error){
-      $('.errorcontainer').html(`<p>${store.error}</p>`);
-    }
-    
+      $('.errorcontainer').html(`<p>Error Code: ${store.error.code}. <br> Error Message: ${store.error.message}</p><button class="closeError">Close</button>`);
+    }    
     else { 
-      $('.error').html('');
+      $('.errorContainer').html('');
 
     }
     
@@ -72,6 +71,13 @@ const shoppingList = (function(){
     $('.js-shopping-list').html(shoppingListItemsString);
   }
  
+  function handleCloseError() {
+    console.log('inside close error function');
+    $('.errorcontainer').on('click', '.closeError', () => {
+      store.error = null;
+      render();
+    });
+  }
   
   function handleNewItemSubmit() {
     $('#js-shopping-list-form').submit(function (event) {
@@ -89,7 +95,7 @@ const shoppingList = (function(){
 
         .catch(err => {
           console.log(err);
-          store.setError(err.message);
+          store.error = err;
           render();
         });
     });
@@ -111,7 +117,7 @@ const shoppingList = (function(){
           render();
         })
         .catch(err => {
-          store.setError(err.message);
+          store.error = err;
           render();
         });
     });
@@ -129,7 +135,7 @@ const shoppingList = (function(){
           render();
         })
         .catch(err => {
-          store.setError(err.message);
+          store.error = err;
           render();
         });
     });
@@ -147,7 +153,7 @@ const shoppingList = (function(){
           render();
         })
         .catch(err => {
-          store.setError(err.message);
+          store.error = err;
           render();
         });
     });
@@ -178,6 +184,7 @@ const shoppingList = (function(){
   }
   
   function bindEventListeners() {
+    
     handleNewItemSubmit();
     handleItemCheckClicked();
     handleDeleteItemClicked();
@@ -185,6 +192,7 @@ const shoppingList = (function(){
     handleToggleFilterClick();
     handleShoppingListSearch();
     handleItemStartEditing();
+    handleCloseError();
   }
 
   // This object contains the only exposed methods from this module:
